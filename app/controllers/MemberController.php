@@ -1,13 +1,6 @@
 <?php
 class MemberController extends BaseController {
 
-	public function getAll()
-	{
-		$dbs = new DBconnect();
-		$rd = DB::collection($dbs->getTable())->get();
-		return Response::json($rd);
-	}
-
 	public function getAllMember()
 	{
 		$dbs = new DBconnect();

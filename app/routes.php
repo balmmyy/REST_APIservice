@@ -10,9 +10,12 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-//member controller
-Route::get('/', 'MemberController@getAll');
+//home controller
+Route::get('/home', 'HomeController@getAll');
 
+Route::delete('/home', 'HomeController@deleteAll');
+
+//member controller
 Route::get('/member', 'MemberController@getAllMember');
 
 Route::get('/member/{key}', 'MemberController@getMember');
