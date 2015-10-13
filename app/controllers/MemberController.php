@@ -1,7 +1,5 @@
 <?php
 class MemberController extends BaseController {
-	
-
 
 	public function getAll()
 	{
@@ -17,10 +15,9 @@ class MemberController extends BaseController {
 		$result = array();
 		for($i=0; $i<count($rd); $i++){
 			$mem = $rd[$i];
-			if(array_key_exists('Order',$mem))
-				$mem = array_except($mem,array('Order'));
-			//$result = $result + array('test'=>'1');
-			//$result = $result + $mem;
+			if(array_key_exists('Order',$mem)){
+				$mem = array_except($mem,array('Order','updated_at'));
+			}
 			array_push($result,$mem);
 		}
 		return Response::json($result);
@@ -33,7 +30,7 @@ class MemberController extends BaseController {
 
 		if(isset($doc[0])) {
 
-			return Response::json(array_except($doc[0]->toArray(),array('Order')));
+			return Response::json(array_except($doc[0]->toArray(),array('Order','updated_at')));
 			//return Response::json((array)$doc[0]);
 		}else{
 			return Response::json(array('message'=>'Member not found'));

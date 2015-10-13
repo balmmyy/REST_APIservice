@@ -24,15 +24,23 @@ Route::put('/member/{key}', 'MemberController@editMember');
 Route::delete('/member/{key}','MemberController@deleteMember');
 
 //order controller
-Route::get('/member/{member}/order', 'OrderController@getAllOrder');
+Route::get('/member/{member}/order', 'OrderController@getAllOrderInMember');
 
-Route::get('/member/{member}/order/{id}', 'OrderController@getOrder');
+Route::get('/member/{member}/order/{id}', 'OrderController@getOrderInMember');
 
-Route::post('/member/{member}/order', 'OrderController@addOrder');
+Route::post('/member/{member}/order', 'OrderController@addOrderInMember');
 
-Route::put('/member/{member}/order/{id}', 'OrderController@editOrder');
+Route::put('/member/{member}/order/{id}', 'OrderController@editOrderInMember');
 
-Route::delete('/member/{member}/order/{id}', 'OrderController@deleteOrder');
+Route::delete('/member/{member}/order/{id}', 'OrderController@deleteOrderInMember');
+
+Route::get('/order', 'OrderController@getAllOrder');
+
+Route::get('/order/{id}', 'OrderController@getOrder');
+
+Route::put('/order/{id}', 'OrderController@editOrder');
+
+Route::delete('/order/{id}', 'OrderController@deleteOrder');
 
 /*Route::get('/', function(){
 	return View::make('hello');
