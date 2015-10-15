@@ -48,6 +48,9 @@ class OrderController extends BaseController {
 
         $post = Input::get();
 
+       /* if(!array_key_exists('product', $post)){
+            return Response::json(array('message'=>'Please provide product. (example-> \'product\':\'book\')'));
+        }*/
 
         //remove csrf token
         if(array_key_exists('_token', $post)){
@@ -95,12 +98,10 @@ class OrderController extends BaseController {
 
                     $found = true;
 
-                    //$data1 = array('Order_id'=>array('$id'=>$id));
-                    $data1 = array('Order_id'=>$item['Order_id']);
-                    //$data1['Order_id']['$id']=$id;
-                    $data1 = $data1 + $post;
+                    /* $data1 = array('Order_id'=>$item['Order_id']);
+                     $data1 = $data1 + $post;*/
+                    $data1 = array_merge($item,$post);
                     array_push($payload,$data1);
-                    //array_push($payload,array_merge($item->toArray(),$post->toArray()));
                 }else{
                     array_push($payload,$item);
                 }
@@ -220,12 +221,11 @@ class OrderController extends BaseController {
 
                         $found = true;
 
-                        //$data1 = array('Order_id'=>array('$id'=>$id));
-                        $data1 = array('Order_id'=>$item['Order_id']);
-                        //$data1['Order_id']['$id']=$id;
-                        $data1 = $data1 + $post;
+                       /* $data1 = array('Order_id'=>$item['Order_id']);
+                        $data1 = $data1 + $post;*/
+                        $data1 = array_merge($item,$post);
                         array_push($payload,$data1);
-                        //array_push($payload,array_merge($item->toArray(),$post->toArray()));
+
                     }else{
                         array_push($payload,$item);
                     }

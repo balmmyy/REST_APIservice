@@ -41,6 +41,8 @@ Route::get('/order', 'OrderController@getAllOrder');
 
 Route::get('/order/{id}', 'OrderController@getOrder');
 
+Route::post('/order/{member}', 'OrderController@addOrderInMember');
+
 Route::put('/order/{id}', 'OrderController@editOrder');
 
 Route::delete('/order/{id}', 'OrderController@deleteOrder');
