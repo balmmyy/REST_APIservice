@@ -47,6 +47,12 @@ Route::put('/order/{id}', 'OrderController@editOrder');
 
 Route::delete('/order/{id}', 'OrderController@deleteOrder');
 
+//product controller
+Route::get('/product', 'ProductController@getAllProduct');
+
+Route::get('/product/{product}', 'ProductController@getProduct');
+
+
 /*Route::get('/', function(){
 	return View::make('hello');
 });*/

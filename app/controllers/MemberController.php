@@ -3,7 +3,7 @@ class MemberController extends BaseController {
 
 	public function getAllMember()
 	{
-		$dbs = new DBconnect();
+		$dbs = new MemberDBS();
 		$rd = DB::collection($dbs->getTable())->get();
 		$result = array();
 		for($i=0; $i<count($rd); $i++){
@@ -18,7 +18,7 @@ class MemberController extends BaseController {
 
 	public function getMember($key)
 	{
-		$dbs = new DBconnect();
+		$dbs = new MemberDBS();
 		$doc = $dbs->where('_id',$key)->orWhere('memberName',$key)->get();
 
 		if(isset($doc[0])) {
@@ -38,7 +38,7 @@ class MemberController extends BaseController {
 		if(array_key_exists('_token', $post)){
 			unset($post['_token']);
 		}
-		$dbs = new DBconnect();
+		$dbs = new MemberDBS();
 		if($dbs->insert($post)){
 			return Response::json(array('message'=>'success'));
 		}else{
@@ -48,7 +48,7 @@ class MemberController extends BaseController {
 	
 	public function editMember($key)
 	{
-		$dbs = new DBconnect();
+		$dbs = new MemberDBS();
         $doc = $dbs->where('_id',$key)->orWhere('memberName',$key);
 
 		$post = Input::get();
@@ -75,15 +75,25 @@ class MemberController extends BaseController {
 	
 	public function deleteMember($key)
 	{
-		$dbs = new DBconnect();
+		$dbs = new MemberDBS();
 
         $doc = $dbs->where('_id',$key)->orWhere('memberName',$key);
 
 		if(isset($doc->get()[0])){
+
+			$data = $doc->get()[0]['Order'];
+			for($i=0; $i<count($data);$i++){
+				$item=$data[$i];
+				$ProductController = new ProductController();
+				if(!$ProductController->deleteOrderOfProduct($item['product'],$item['Order_id'])){
+					return Response::json(array('message'=>'error to update the order in product list'));
+				}
+			}
+
 			if($doc->delete()){
 				return Response::json(array('message'=>'success'));
 			}else{
-				return Response::json(array('message'=>'error'));
+				return Response::json(array('message'=>'error to delete member'));
 			}
 		}else{
             return Response::json(array('message'=>'Member not found'));
